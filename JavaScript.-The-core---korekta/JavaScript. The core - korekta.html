@@ -1,0 +1,1167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.3  (Unix)">
+	<META NAME="CREATED" CONTENT="20170813;14263900">
+	<META NAME="CHANGED" CONTENT="20170815;291600">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		H1 { margin-bottom: 0.08in; page-break-after: avoid }
+		H1.western { font-family: "Tinos", serif; font-size: 24pt; font-weight: bold }
+		H1.cjk { font-family: "WenQuanYi Micro Hei"; font-size: 24pt; font-weight: bold }
+		H1.ctl { font-family: "DejaVu Sans"; font-size: 24pt; font-weight: bold }
+		H4 { margin-bottom: 0.08in; page-break-after: avoid }
+		H4.western { font-family: "Tinos", serif; font-size: 12pt; font-weight: bold }
+		H4.cjk { font-family: "WenQuanYi Micro Hei"; font-size: 12pt; font-weight: bold }
+		H4.ctl { font-family: "DejaVu Sans"; font-size: 12pt; font-weight: bold }
+		H3 { margin-bottom: 0.08in; page-break-after: avoid }
+		H3.western { font-family: "Tinos", serif; font-size: 14pt; font-weight: bold }
+		H3.cjk { font-family: "WenQuanYi Micro Hei"; font-size: 14pt; font-weight: bold }
+		H3.ctl { font-family: "DejaVu Sans"; font-size: 14pt; font-weight: bold }
+		PRE.western { font-family: "DejaVu Sans Mono", monospace; font-size: 10pt }
+		PRE.cjk { font-family: "WenQuanYi Micro Hei Mono", monospace; font-size: 10pt }
+		PRE.ctl { font-family: "DejaVu Sans Mono", monospace; font-size: 10pt }
+		EM { font-style: italic }
+		STRONG { font-weight: bold }
+		A:link { color: #000080; so-language: zxx; text-decoration: underline }
+		A:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#000080" VLINK="#800000" DIR="LTR">
+<H1 LANG="pl-PL" CLASS="western">ECMA-262 JavaScript - the Core.</H1>
+<H4 CLASS="western"><SPAN LANG="pl-PL">Wersja angielska: <A HREF="http://dmitrysoshnikov.com/ecmascript/javascript-the-core" TARGET="_blank">JavaScript
+the Core.</A></SPAN></H4>
+<H4 CLASS="western"><SPAN LANG="pl-PL">Autor: <A HREF="http://dmitrysoshnikov.com/" TARGET="_blank">Dmitry
+Soshnikov</A></SPAN></H4>
+<H4 CLASS="western"><SPAN LANG="pl-PL">Tlumaczenie: <A HREF="https://www.facebook.com/robertvdir" TARGET="_blank">Robert
+Szołdrowski</A></SPAN></H4>
+<HR>
+<OL>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#obiekt">Obiekt.</A>
+	</SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#lancuch-prototypow">Łańcuch
+	prototypu (a prototype chain).</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#konstruktor">Konstruktor.</A>
+	</SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#stos-kontekstow-wykonania">Stos
+	kontekstów wykonania (Execution context stack).</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#kontekst-wykonania">Kontekst
+	wykonania. (Execution context).</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#variable-object">Variable
+	object.</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#activation-object">Activation
+	object.</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#scope-chain">Łańcuch
+	zasięgu. (Scope chain).</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#closures">Domknięcia
+	- closures.</A> </SPAN>
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#this-value">Wskaźnik
+	kontekstu &quot;this&quot;.</A> </SPAN>
+	</P>
+	<LI><P><SPAN LANG="pl-PL"><A HREF="http://eternes.pl/blog/ecma-262-javascript-the-core#conclusion">Podsumowanie.</A>
+	</SPAN>
+	</P>
+</OL>
+<P><SPAN LANG="pl-PL">Ten rozdział jest przeglądem oraz
+podsumowaniem serii artykułów <A HREF="http://dmitrysoshnikov.com/tag/ecma-262-3/" TARGET="_blank">ECMA-262-3
+in detail</A> utworzonej przez Dmitriego Soshnikova. Każda z części
+tego artykułu zawiera odnośniki do właściwego, pod względem
+tematycznym rozdziału (wersja w języku angielskim). Polecam je
+przeczytać - jeżeli będziesz potrzebował głębszych
+wyjaśnień.<BR><BR>Grupa docelowa: doświadczeni programiści,
+profesjonaliści.</SPAN></P>
+<HR>
+<P LANG="pl-PL">Zaczniemy od rozważenia pojęcia obiektu, który to
+stanowi fundament dla ECMAScript.</P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">1. Obiekt.</FONT></H3>
+<P LANG="pl-PL">ECMAScript, jest wysoko abstrakcyjnym, obiektowo
+zorientowanym językiem programowania, operującym na obiektach. W
+języku tym istnieją także typy proste (primitives), ale one także
+w razie potrzeby, mogą być przekonwertowane na obiekty.</P>
+<P LANG="pl-PL">Obiekt jest kolekcja właściwości i posiada
+pojedynczy prototyp obiektu. Prototyp możne być obiektem lub
+wartością null.</P>
+<P LANG="pl-PL"><BR>Na początku zajmijmy się prostym przykładem
+obiektu. Prototyp obiektu jest wskazywany przez wewnętrzna
+właściwość <SPAN STYLE="background: #eeeeee">[[Prototype]]</SPAN>.
+Aczkolwiek, na rysunku używamy notacji z podkreśleniami
+<SPAN STYLE="background: #eeeeee">__&lt;internal-property&gt;__
+</SPAN>zamiast notacji z podwójnymi nawiasami, szczególnie dla
+prototypu obiektu: <SPAN STYLE="background: #eeeeee">__proto__</SPAN>.
+<BR>Dla poniższego kodu:</P>
+<OL>
+	<LI><P LANG="pl-PL" STYLE="margin-bottom: 0in">var foo = { 
+	</P>
+	<LI><P LANG="pl-PL" STYLE="margin-bottom: 0in">x: 10, 
+	</P>
+	<LI><P LANG="pl-PL" STYLE="margin-bottom: 0in">y: 20 
+	</P>
+	<LI><P LANG="pl-PL">}; 
+	</P>
+</OL>
+<P LANG="pl-PL">Mamy strukturę z jednoznacznie własnymi
+właściwościami oraz jedną ukrytą właściwość <SPAN STYLE="background: #e8e8e8">__proto__</SPAN>
+, która jest referencja do prototypu <SPAN STYLE="background: #e8e8e8">foo</SPAN>:</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/01-obiekt/basic-object-pl.png" NAME="grafika1" ALIGN=BOTTOM WIDTH=377 HEIGHT=118 BORDER=0>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Po co są potrzebne
+prototypy? W następnym rozdziale rozważymy koncepcje łańcucha
+prototypów aby odpowiedzieć na to pytanie.</P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">2. Łańcuch
+prototypów (a prototype chain).</FONT></H3>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in; font-weight: normal"><FONT SIZE=3>Obiekty
+prototypu są także obiektami i mogą mieć własne prototypy.
+Jeżeli prototyp ma referencje do swojego prototypu, a ten także
+posiada referencje do prototypu, takie połączenie jest nazywane
+łańcuchem prototypów.</FONT></P>
+<P LANG="pl-PL">Łańcuch prototypów jest skończonym łańcuchem
+obiektów, który jest używany do dziedziczenia i udostępniania
+właściwości.</P>
+<P LANG="pl-PL">Rozważmy przypadek gdy mamy dwa obiekty, które
+różnią się miedzy sobą tylko w pewnej malej części. Pozostałe
+części, dla obu obiektów są takie same. Oczywiście, w dobrze
+zaprojektowanym systemie, chcielibyśmy ponownie użyć podobne
+funkcjonalności bez powtarzania ich w każdym z obiektów.</P>
+<P LANG="pl-PL">W systemach opartych o klasy (class-based systems),
+takie współdzielenie kodu jest nazywane dziedziczeniem - wstawiamy
+podobne funkcjonalności do klasy <SPAN STYLE="background: #eeeeee">A</SPAN>
+i tworzymy klasy <SPAN STYLE="background: #eeeeee">B</SPAN> i <SPAN STYLE="background: #eeeeee">C</SPAN>,
+które to dziedziczą z <SPAN STYLE="background: #eeeeee">A</SPAN>
+oraz maja własne małe dodatkowe różnice.</P>
+<P LANG="pl-PL">ECMA Script nie jest oparty o koncept klas.
+Aczkolwiek, styl powtórnego użycia kodu zbytnio się nie rożni
+(chociaż, pod kilkoma względami jest bardziej elastyczny niż
+systemy oparte o klasy) i jest osiągany za pomocą łańcucha
+prototypów. Ten sposób dziedziczenia jest nazywany dziedziczeniem
+bazującym na delegacjach.</P>
+<P LANG="pl-PL">Podobnie jak w przypadku z klasami <SPAN STYLE="background: #eeeeee">A</SPAN>,
+<SPAN STYLE="background: #eeeeee">B</SPAN> i <SPAN STYLE="background: #eeeeee">C</SPAN>
+w ECMAScript tworzymy obiekty: <SPAN STYLE="background: #eeeeee">a</SPAN>,<SPAN STYLE="background: #eeeeee">b</SPAN>
+i <SPAN STYLE="background: #eeeeee">c</SPAN>. Chociaż obiekt <SPAN STYLE="background: #eeeeee">a</SPAN>
+przechowuje te cześć, która jest wspólna dla obiektów <SPAN STYLE="background: #eeeeee">b</SPAN>
+i <SPAN STYLE="background: #eeeeee">c</SPAN>. Wiec obiekty b i c
+przechowują swoje własne dodatkowe właściwości i metody.</P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var a = {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">x: 10,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">calculate: function (z) {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">    <SPAN LANG="pl-PL">return this.x + this.y + z</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">}</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">};</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var b = {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">y: 20,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">__proto__: a</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">};</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var c = {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">y: 30,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in">  <SPAN LANG="pl-PL">__proto__: a</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">};</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// wywołanie odziedziczonych metod</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">b.calculate(30); // 60</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">c.calculate(40); // 80</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">Proste,
+czyż nie? Widzimy ze </SPAN></SPAN></FONT><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">b</SPAN></SPAN></SPAN></FONT>
+<FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">i </SPAN></SPAN></FONT><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">c</SPAN></SPAN></SPAN></FONT>
+<FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">maja
+dostęp do metody </SPAN></SPAN></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">calculate</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><SPAN STYLE="background: #eeeeee">
+</SPAN></FONT><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">,
+która to jest zdefiniowana w obiekcie </SPAN></SPAN></FONT><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">a</SPAN></SPAN></SPAN></FONT><EM><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">.</SPAN></SPAN></FONT></EM>
+<FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">Osiągamy
+to poprzez mechanizm łańcucha prototypu.</SPAN></SPAN></FONT></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in"><FONT SIZE=3><SPAN STYLE="font-weight: normal">To
+jest prosta zasada: jeżeli pewna właściwość lub metoda nie jest
+znaleziona w obiekcie (tzn. obiekt nie ma swojej właściwości), to
+wtedy podjęta zostaje próba znalezienia tej właściwości/metody w
+łańcuchu prototypów. Jeżeli Właściwość nie jest odnaleziona w
+prototypie, to wtedy rozważany jest nadrzędny prototyp (prototyp
+prototypu). Działanie to jest przeprowadzone poprzez cały łańcuch
+prototypów (to samo jest wykonywane w dziedziczeniu bazującym na
+klasach, kiedy rozważamy odziedziczona metodę wtedy podążamy
+poprzez, odpowiedni dla tych klas, łańcuch dziedziczenia.) Użyta
+zostaje pierwsza znaleziona metoda/właściwość o tej samej nazwie.
+Zatem, odnaleziona właściwość jest nazywana właściwością
+odziedziczona. Może się zdarzyć iż właściwość nie zostanie
+odnaleziona w całym łańcuchu prototypów, w takim przypadku
+zostanie zwrócona wartość </SPAN></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">undefined</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><SPAN STYLE="background: #eeeeee">
+</SPAN></FONT><FONT SIZE=3><SPAN STYLE="font-weight: normal">(niezdefiniowana).</SPAN></FONT></P>
+<P STYLE="margin-bottom: 0in"><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">Zauważmy
+że wartość </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">(metoda
+</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">calculate</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><SPAN STYLE="background: #eeeeee">
+</SPAN></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">w
+powyższym kodzie) użyta w odziedziczonej metodzie jest ustawiona
+nie na obiekt-prototyp ale na na </SPAN></SPAN></FONT></FONT><EM><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">oryginalny</SPAN></SPAN></FONT></FONT></EM><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">obiekt,
+w którym ta metoda została odnaleziona. W powyższym przykładzie
+wartość </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">this.y</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">jest
+pobierana z obiektów </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">b</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">oraz
+</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">c</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">ale
+nie jest pobierana z </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">a</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">.
+Jednak wartość </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">this.x</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">jest
+pobrana z obiektu </SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">a</SPAN></SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">,
+za pomocą mechanizmu </SPAN></SPAN></FONT></FONT><EM><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">łańcucha
+prototypu</SPAN></SPAN></FONT></FONT></EM><FONT COLOR="#000000"> </FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN LANG="pl-PL"><SPAN STYLE="font-weight: normal">.</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in; font-weight: normal"><FONT COLOR="#000000"><FONT SIZE=3>Jeżeli
+dla obiektu nie jest jawnie określony prototyp, to w takim przypadku
+(obiekt a) wartość </FONT><FONT SIZE=3><SPAN STYLE="background: #eeeeee">__proto__</SPAN></FONT>
+<FONT SIZE=3>tego obiektu zostanie ustawiona na </FONT><FONT SIZE=3><SPAN STYLE="background: #eeeeee">Object.prototype</SPAN></FONT><FONT SIZE=3>.</FONT>
+</FONT>
+</P>
+<P LANG="pl-PL"><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal">Sam
+</SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">Object.prototype</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal">,
+także ma właściwość </SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">__proto__</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000">
+</FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal">i
+stanowi ostateczne połączenie jest nią </SPAN></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=3><SPAN STYLE="font-weight: normal"><SPAN STYLE="background: #eeeeee">null</SPAN></SPAN></FONT></FONT><FONT COLOR="#000000"><SPAN STYLE="background: #eeeeee">
+</SPAN></FONT>.</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in; font-weight: normal"><FONT COLOR="#000000"><FONT SIZE=3>Poniższy
+obraz pokazuje hierarchie dziedziczenia naszych obiektów </FONT><FONT SIZE=3><SPAN STYLE="background: #eeeeee">a</SPAN></FONT><FONT SIZE=3>,
+</FONT><FONT SIZE=3><SPAN STYLE="background: #eeeeee">b</SPAN></FONT>
+<FONT SIZE=3>oraz </FONT><FONT SIZE=3><SPAN STYLE="background: #eeeeee">c</SPAN></FONT><FONT SIZE=3>:</FONT>
+</FONT>
+</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/02-lancuch-prototypow/lancuch-prototypow.png" NAME="grafika2" ALIGN=BOTTOM WIDTH=373 HEIGHT=239 BORDER=0>
+</P>
+<PRE CLASS="western"><STRONG><SPAN LANG="pl-PL">Uwaga:</SPAN></STRONG> <SPAN LANG="pl-PL">W języku ES5 istnieje alternatywny ustandaryzowany sposób dziedziczenia za pomocą funkcji </SPAN><FONT COLOR="#000000"><SPAN LANG="pl-PL"><SPAN STYLE="background: #999999">Object.create</SPAN></SPAN></FONT><SPAN LANG="pl-PL">.</SPAN>
+
+<SPAN LANG="pl-PL">var b = Object.create(a, {y: {value: 20}});</SPAN>
+<SPAN LANG="pl-PL">var c = Object.create(a, {y: {value: 30}});</SPAN>
+
+<SPAN LANG="pl-PL">Więcej informacji o nowym API w języku ES5 jest w tym <A HREF="http://dmitrysoshnikov.com/ecmascript/es5-chapter-1-properties-and-property-descriptors/#new-api-methods">odpowiednim rozdziale</A>.</SPAN>
+
+<SPAN LANG="pl-PL">Tym niemniej w jezyku ES6 ustandaryzowano właściwość <FONT COLOR="#000000"><SPAN STYLE="background: #999999">__proto__</SPAN></FONT> i możne być użyta przy inicjalizacji obiektów.</SPAN></PRE><P>
+<SPAN LANG="pl-PL">Często istnieje potrzeba aby mieć obiekty z ta
+sama lub </SPAN><EM><SPAN LANG="pl-PL">podobna struktura pól/stanu</SPAN></EM>
+<SPAN LANG="pl-PL">(state structure), przykładowo, ten sam zestaw
+właściwości ale z innym wartościami pól. W takim przypadku
+używamy funkcji konstruktora obiektu według </SPAN><EM><SPAN LANG="pl-PL">określonego
+wzoru</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">3.
+Konstruktor.</FONT></H3>
+<P LANG="pl-PL">Poza tworzeniem obiektów według określonego
+wzorca, funkcja konstruktora potrafi wykonać inna pożyteczna rzecz
+mianowicie automatycznie ustawia referencje do obiektu prototypu
+(prototype object ) dla nowo utworzonych obiektów. Referencja do
+obiektu prototypu jest przechowywana we właściwości
+<SPAN STYLE="background: #eeeeee">ConstructorFunction.prototype</SPAN>.</P>
+<P LANG="pl-PL">Przepiszmy poprzedni przykład z obiektami <SPAN STYLE="background: #eeeeee">b</SPAN>
+oraz <SPAN STYLE="background: #eeeeee">c</SPAN> do tworzenia których
+użyjemy funkcji konstruktora. Zatem, znaczenie obiektu a (prototypu)
+<SPAN STYLE="background: #eeeeee">Foo.prototype</SPAN> polega na:</P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// funkcja konstruktora</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function Foo(y) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// która tworzy obiekty</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// według określonego wzoru, obiekty te </SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// po utworzeniu maja swoja właściwość &quot;y&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">this.y = y;</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// także &quot;Foo.prototype&quot; przechowuje referencje</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// do prototypu nowo utworzonych obiektów,</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// więc możemy użyć ich do definiowania udostępniania/dziedziczenia</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// właściwości i metod. Podobnie jak </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// w poprzednim przykładzie teraz mamy: </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// odziedziczona właściwość &quot;x&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">Foo.prototype.x = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// oraz odziedziczona metodę &quot;calculate&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">Foo.prototype.calculate = function (z) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return this.x + this.y + z;</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">};</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// teraz tworzymy obiekty &quot;b&quot; oraz &quot;c&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// używając &quot;wzorca&quot; Foo</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var b = new Foo(20);</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var c = new Foo(30);</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// wywołanie odziedziczonych metod</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">b.calculate(30); // 60</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">c.calculate(40); // 80</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// sprawdźmy czy referencje</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// zwracają nam oczekiwane wartości</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">b.__proto__ === Foo.prototype, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">c.__proto__ === Foo.prototype, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// także &quot;Foo.prototype&quot; automatycznie tworzy</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// specjalna właściwość &quot;constructor&quot;, która to sama jest</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// referencja do funkcji konstruktora;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// instancje &quot;b&quot; oraz &quot;c&quot; można znaleźć poprzez</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// delegacje oraz sprawdzenie ich własności konstruktora.</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">b.constructor === Foo, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">c.constructor === Foo, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">Foo.prototype.constructor === Foo, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">b.calculate === b.__proto__.calculate, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">b.__proto__.calculate === Foo.prototype.calculate // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">);</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Kod można zobrazować
+następującym powiązaniem elementów:</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/03-konstruktor/constructor-proto-chain.png" NAME="grafika3" ALIGN=BOTTOM WIDTH=627 HEIGHT=392 BORDER=0>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Powyższy obraz, ponownie
+pokazuje to ze każdy obiekt ma prototyp. Konstruktor <SPAN STYLE="background: #eeeeee">Foo</SPAN>
+także ma właściwość <SPAN STYLE="background: #eeeeee">__proto__</SPAN>
+, która przechowuje referencje na <SPAN STYLE="background: #eeeeee">Function.prototype</SPAN>
+a funkcja ta z kolei odwołuje się, poprzez swoja właściwość
+<SPAN STYLE="background: #eeeeee">__proto__</SPAN>, do
+<SPAN STYLE="background: #eeeeee">Object.prototype</SPAN>. Następna
+właściwość wcześniej wspomnianego konstruktora <SPAN STYLE="background: #eeeeee">Foo</SPAN>
+(napis “prototype” na niebieskim tle) wyraźnie wskazuje na
+<SPAN STYLE="background: #eeeeee">Foo.prototype</SPAN>, podobnie jak
+tez obiekty <SPAN STYLE="background: #eeeeee">a</SPAN> i <SPAN STYLE="background: #eeeeee">b</SPAN>
+wskazują na <SPAN STYLE="background: #eeeeee">Foo.prototype</SPAN>.</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Jeżeli rozważymy koncept
+klas obiektów (teraz, gdy mamy sklasyfikowaną nową rzecz - Foo) to
+kombinacja funkcji konstruktora oraz prototypu może być uznana jako
+klasa obiektu.</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">W języku Python,
+pierwszoklasowe (first-class) dynamiczne klasy mają dokładnie tę
+samą implementację ustanawiania właściwości/metod..</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Z tego puntu widzenia,
+klasy w python są tylko lukrem syntaktycznym dla dziedziczenia
+opartego o delegacje, które to jest używane w ECMAScript.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<PRE CLASS="western" STYLE="margin-bottom: 0.2in"><STRONG><SPAN LANG="pl-PL">Uwaga:</SPAN></STRONG> <SPAN LANG="pl-PL">W ES6 ustandaryzowano koncept klasy, która to jest implementowana dokładnie jako lukier syntaktyczny na początku funkcji konstruktora. Ten problem już był opisywany powyżej. Z tego punktu widzenia łańcuchy prototypów stają się szczegółami implementacji mechanizmu dziedziczenia bazującego na klasach.</SPAN></PRE>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// ES6</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">class Foo {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">constructor(name) {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">this._name = name;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">}</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">getName() {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return this._name;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">}</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">class Bar extends Foo {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">getName() {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return super.getName() + ' Doe';</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">}</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var bar = new Bar('John');</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(bar.getName()); // John Doe</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kompletne,
+szczegółowe wyjaśnienie tego tematu można odnaleźć w rozdziale
+7 serii o ES3. Są tam dwie części <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-7-1-oop-general-theory/" TARGET="_blank">Chapter
+7.1. OOP. The general theory</A>, gdzie znajdziesz opis różnorodnych
+paradygmatów oraz stylistyki na temat OOP, a także porównanie z
+ECMAScript. Rozdział 7.2 (<A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-7-2-oop-ecmascript-implementation/" TARGET="_blank">Chapter
+7.2. OOP. ECMAScript implementation</A>) jest szczególnie poświęcony
+tematowi OOP w ECMAScript.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Teraz, jak już mamy
+podstawowe wyobrażenie o obiektach, rozważmy jak zaimplementowano
+runtime program execution (mechanizm uruchomieniowy) w ECMAScript.
+Pojecie</SPAN><EM> </EM><EM><SPAN LANG="pl-PL">execution context
+stack</SPAN></EM> <SPAN LANG="pl-PL">(stos kontekstów wykonania),
+oznacza że każdy element, w sensie abstrakcyjnym, możne być
+reprezentowany jako obiekt. EcmaScript, prawie wszędzie operuje
+pojęciem obiektu.</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">4. Stos
+kontekstów wykonania. (Execution context stack)</FONT></H3>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Istnieją trzy typy
+kodu ECMAScript: kod </SPAN><EM><SPAN LANG="pl-PL">globalny</SPAN></EM><SPAN LANG="pl-PL">,
+kod funkcyjny oraz kod </SPAN><EM><SPAN LANG="pl-PL">eval</SPAN></EM><SPAN LANG="pl-PL">.
+Każdy rodzaj takiego kodu działa w ramach swojego </SPAN><EM><SPAN LANG="pl-PL">kontekstu
+wykonania</SPAN></EM><SPAN LANG="pl-PL">. Istnieje tylko jeden
+globalny kontekst wykonania i może być wiele kontekstów dla wielu
+instancji funkcji oraz funkcji typu </SPAN><EM><SPAN LANG="pl-PL">eval</SPAN></EM><SPAN LANG="pl-PL">.
+Kazie wywołanie funkcji powoduje uruchomienie kodu w ramach
+kontekstu tej funkcji oraz wykrycie typu kodu funkcji. Wywołanie
+funkcji </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">eval</SPAN></SPAN><SPAN LANG="pl-PL">,
+podobnie jak wyżej, powoduje wykrycie typu kodu oraz zagnieżdżenie
+jej w ramach swojego kontekstu.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Zauważ ze jedna
+funkcja może wygenerować nieskończenie długi zestaw kontekstów,
+ponieważ każe wywołanie funkcji (nawet jeżeli jest to rekurencja)
+tworzy nowy kontekst z nowym </SPAN><EM><SPAN LANG="pl-PL">kontekstem
+stanu</SPAN></EM><SPAN LANG="pl-PL">:</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function foo(bar) {}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// wywołanie tej samej funkcji,</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// w zależności od podanego argumentu &quot;bar&quot;,</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// wygeneruje dla tych wywołań</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// trzy rożne</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// konteksty wykonania</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo(10);</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo(20);</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo(30);</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Kontekst wykonania może
+aktywować kolejny kontekst, na przykład funkcja wywołuje kolejna
+funkcje (lub tez kontekst globalny wywołuje funkcje globalna.) i tak
+dalej.</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Stos zawierający
+konteksty wywołania jest nazywany execution context stack, czyli
+jest to </SPAN><EM><SPAN LANG="pl-PL">stos kontekstów wykonania</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Konteksty, ze
+względu na charakter działania, można podzielić na </SPAN><EM><SPAN LANG="pl-PL">wywołujące
+(caller)</SPAN></EM> <SPAN LANG="pl-PL">oraz </SPAN><EM><SPAN LANG="pl-PL">wywoływane
+(callee)</SPAN></EM><SPAN LANG="pl-PL">. Z kolei kontekst wywoływany
+możne wywoływać kolejny kontekst. Na przykład funkcja wywołana z
+kontekstu globalnego może wywołać jakieś funkcje wewnętrzne.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kiedy wywołujący
+(caller) aktywuje wywoływanego (callee), kontekst wywołujący
+zawiesza swoje działanie i przekazuje kontrolę (control flow) do
+kontekstu wywoływanego. Kontekst wywołany jest &quot;wstawiany&quot;
+na górę stosu i staje się </SPAN><EM><SPAN LANG="pl-PL">aktywnym</SPAN></EM>
+<SPAN LANG="pl-PL">kontekstem. Po tym jak aktywny kontekst skończy
+działanie, sterowanie wywołaniem jest przekazywane do wywołującego,
+który to kontynuuje, wcześniej przerwane działanie. Wywołujący
+ponownie możne aktywować wywoływanego i powyższy proces może się
+powtarzać. Wywoływany może po prostu zwrócić sterowanie lub
+zakończyć działanie wyjątkiem. Rzucony ale nie złapany wyjątek
+może zakończyć jeden lub wiele kontekstów.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Cala </SPAN><EM><SPAN LANG="pl-PL">przestrzeń
+uruchomieniowa programów</SPAN></EM> <SPAN LANG="pl-PL">(program
+runtime) w ECMAScript można przedstawić jako stos kontekstów
+wykonania [execution context (EC) stack] , gdzie aktywny kontekst
+jest umieszczony na górze stosu:</SPAN></P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/04-stos-kontekstow-wykonania/stos-kontekstow-wykonania.png" NAME="grafika4" ALIGN=BOTTOM WIDTH=229 HEIGHT=136 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kiedy program
+zaczyna działanie to jest uruchamiany w </SPAN><EM><SPAN LANG="pl-PL">globalnym
+kontekście wykonania</SPAN></EM><SPAN LANG="pl-PL">, który to jest
+</SPAN><EM><SPAN LANG="pl-PL">pierwszym</SPAN></EM> <SPAN LANG="pl-PL">elementem
+na spodzie stosu. Wtedy kod globalny wykonuje potrzebne
+inicjalizacje, tworzy obiekty i funkcje. Podczas wykonywania
+globalnego kontekstu (global execution context ), jego kod może
+aktywować inne (już stworzone) funkcje, które wejdą w jego
+kontekst wykonania ustawiając nowy kontekst wykonania na stosie,
+itd. Kiedy inicjalizacja zostanie wykonana, system uruchomieniowy
+(runtime system) czeka na jakieś zdarzenie (np. klikniecie myszka
+przez użytkownika), które to aktywuje jakąś funkcje i położy
+nowy kontekst wywołania na stosie.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Na poniższym rysunku,
+mamy pewną funkcje w kontekście wykonania oznaczonym jako <SPAN STYLE="background: #eeeeee">EC1</SPAN>,
+oraz kontekst globalny oznaczony jako Global EC. Rysunek ten
+przedstawia modyfikacje stosu po aktywowaniu i deaktywowaniu <SPAN STYLE="background: #eeeeee">EC1</SPAN>
+przez globalny kontekst:</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/04-stos-kontekstow-wykonania/zmiany-na-stosie-kontekstow-wykonania.png" NAME="grafika5" ALIGN=BOTTOM WIDTH=463 HEIGHT=87 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Powyżej zostało
+zobrazowane w jaki sposób ECMAScript zarządza wykonaniem kodu.
+Więcej informacji o kontekście wykonania można ECMAScript można
+znaleźć w odpowiednim dziale <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/" TARGET="_blank">Chapter
+1. Execution context</A>.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Tak jak wcześniej
+wspomniano, każdy kontekst wywołania układany na stosie może być
+opisany jako obiekt. Spójrzmy na jego strukturę i rodzaj
+właściwości jakie to kontekst potrzebuje do wykonania swego kodu.</P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">5. Kontekst
+wykonania jako obiekt. (Execution context)</FONT></H3>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kontekst wykonania,
+można sobie wyobrazić jako prosty obiekt. Każdy kontekst wywołania
+ma zestaw właściwości (nazywanych </SPAN><EM><SPAN LANG="pl-PL">stanami
+kontekstu</SPAN></EM><SPAN LANG="pl-PL">) niezbędny do śledzenia
+procesu wykonania własnego załączonego kodu. Poniżej jest rysunek
+struktury kontekstu wykonania:</SPAN></P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/05-kontekst-wykonania/kontekst-wykonania.png" NAME="grafika6" ALIGN=BOTTOM WIDTH=340 HEIGHT=249 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Po za tymi trzema
+niezbędnymi właściwościami (variable object, </SPAN><EM><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN></EM>
+<SPAN LANG="pl-PL">oraz </SPAN><EM><SPAN LANG="pl-PL">scope chain -
+łańcuch zasięgu</SPAN></EM><SPAN LANG="pl-PL">), kontekst
+wywołania może mieć dodatkowe stany jest to uzależnione od
+implementacji.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Rozważmy szczegółowo te
+najważniejsze właściwości kontekstu.</P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">6. Variable
+object</FONT></H3>
+<P><SPAN LANG="pl-PL">Uwaga od tłumacza: Poniżej, pozostaje
+nieprzetłumaczone pojęcie </SPAN><EM><SPAN LANG="pl-PL">&quot;function
+expression&quot;, </SPAN></EM><SPAN LANG="pl-PL">które to w języku
+polskim ma kilka nieprecyzyjnych a nawet mylących odpowiedników.</SPAN></P>
+<P LANG="pl-PL">Variable object - to kontener danych powiązanych z
+kontekstem wykonania. Jest specjalnym obiektem, który przechowuje
+zmienne i deklaracje funkcji, zdefiniowane w tym kontekście.</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Zwróc uwagę ze
+</SPAN><EM><SPAN LANG="pl-PL">&quot;function expressions&quot;</SPAN></EM><SPAN LANG="pl-PL">,
+w przeciwieństwie do </SPAN><EM><SPAN LANG="pl-PL">deklaracji
+funkcji</SPAN></EM><SPAN LANG="pl-PL">, </SPAN><EM><SPAN LANG="pl-PL">nie
+są zawarte</SPAN></EM> <SPAN LANG="pl-PL">w Variable obiect.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Variable object jest
+pojęciem abstrakcyjnym. W rożnych typach kontekstu, jest
+reprezentowany przy użyciu rożnych obiektów. Na przykład, w
+kontekście globalnym Variable object jest </SPAN><EM><SPAN LANG="pl-PL">własnym
+globalnym obiektem</SPAN></EM><SPAN LANG="pl-PL">, dlatego poprzez
+właściwości obiektu globalnego mamy dostęp do zmiennych
+globalnych.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Rozważmy następujący
+przykład w globalnym kontekście wykonania:</P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var foo = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function bar() {} // Deklaracja funkcji, (FD - function declaration)</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(function baz() {}); // function expression (FE)</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">this.foo == foo, // true</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">window.bar == bar // true</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">);</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(baz); // ReferenceError, &quot;baz&quot; is not defined</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Dla powyższego przykładu
+globalny kontekst Variable object (VO) ma następujące właściwości:</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/06-variable-object/variable-object.png" NAME="grafika7" ALIGN=BOTTOM WIDTH=221 HEIGHT=145 BORDER=0>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Spójrzmy ponownie na
+powyższy kod. Funkcja <SPAN STYLE="background: #eeeeee">baz</SPAN>
+jest to &quot;function expression&quot; i nie jest zawarta w Variable
+Object. Gdy z zewnątrz staramy się uruchomić funkcje <SPAN STYLE="background: #eeeeee">baz</SPAN>,
+to wtedy otrzymujemy <SPAN STYLE="background: #eeeeee">ReferenceError</SPAN>
+(błąd referencji).</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Zauważmy ze w
+przeciwieństwie do innych języków (np. c/c++) w ECMAScript tylko
+funkcje tworzą nowy zasięg. Zmienne i metody (funkcje wewnętrzne)
+zawarte w zasięgu funkcyjnym nie są bezpośrednio widoczne na
+zewnątrz, wiec nie zaśmiecają globalnego VO (global Varible
+Obiect).</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Używając funkcji
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">eval</SPAN></SPAN>
+<SPAN LANG="pl-PL">także wchodzimy w nowy kontekst wykonania
+(należący do </SPAN><EM><SPAN LANG="pl-PL">eval</SPAN></EM><SPAN LANG="pl-PL">).
+Aczkolwiek </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">eval</SPAN></SPAN>
+<SPAN LANG="pl-PL">używa również globalnego Variable Object lub
+tez Variable Object, który należy do wywołującego  (np. funkcja z
+której to </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">eval</SPAN></SPAN>
+<SPAN LANG="pl-PL">został wywołany ).</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Co w takim razie z
+funkcjami oraz ich Variable Object? Z punktu widzenia funkcji, VO
+jest dla niej </SPAN><EM><SPAN LANG="pl-PL">obiektem aktywującym</SPAN></EM>
+<SPAN LANG="pl-PL">(activation object).</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">7. Activation
+object - obiekt aktywacji.</FONT></H3>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kiedy funkcja jest
+uruchamiana (wywołana)  poprzez przez inny obiekt (caller), wtedy
+jest tworzony  specjalny </SPAN><EM><SPAN LANG="pl-PL">activation
+object</SPAN></EM> <SPAN LANG="pl-PL">. Obiekt ten jest podobny do
+variable object ale oprócz pól dla </SPAN><EM><SPAN LANG="pl-PL">wymaganych
+parametrów</SPAN></EM> <SPAN LANG="pl-PL">(formal parameters )
+posiada specjalne pole na obiekty typu </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">argumenty</SPAN></SPAN>
+<SPAN LANG="pl-PL">(arguments), które są zestawem danych
+indeks-właściwość.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Rozpatrzmy poniższy
+przykład:</P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function foo(x, y) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var z = 30;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">function bar() {} // Deklaracja funkcji (FD - function declaration)</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">(function baz() {}); // definicja funkcji (FE - function expression)</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo(10, 20);</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">W kontekście funkcji <SPAN STYLE="background: #eeeeee">foo</SPAN>,
+mamy następujący activation object (AO):</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/07-activation-object/activation-object.png" NAME="grafika8" ALIGN=BOTTOM WIDTH=221 HEIGHT=215 BORDER=0>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Zauważmy ze deklaracja
+funkcji <SPAN STYLE="background: #eeeeee">baz</SPAN> nie jest zawarta
+w variable/active object.</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Kompletny opis wraz
+z wszystkimi szczególnymi przypadkami (takimi jak hoisting zmiennych
+i deklaracji funkcji), można odnaleźć w podobnie brzmiącym
+rozdziale <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/" TARGET="_blank">Chapter
+2. Variable object</A>.</SPAN></P>
+<P><SPAN LANG="pl-PL">Zwróć uwagę, iż w ES5 koncepcja </SPAN><EM><SPAN LANG="pl-PL">variable
+object</SPAN></EM> <SPAN LANG="pl-PL">oraz </SPAN><EM><SPAN LANG="pl-PL">activation
+object</SPAN></EM> <SPAN LANG="pl-PL">są połączone w model
+</SPAN><EM><SPAN LANG="pl-PL">środowiska leksykalnego</SPAN></EM>
+<SPAN LANG="pl-PL">(lexical environments), którego to dokładny opis
+można odnaleźć w tym <A HREF="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-2-lexical-environments-ecmascript-implementation/" TARGET="_blank">odpowiednim
+rozdziale.</A></SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Przejdźmy do
+następnego rozdziału. Jak wiemy w ECMAScript możemy używać
+</SPAN><EM><SPAN LANG="pl-PL">funkcji wewnętrznych</SPAN></EM><SPAN LANG="pl-PL">,
+z których to mamy dostęp do zmiennych należących do funkcji
+</SPAN><EM><SPAN LANG="pl-PL">zewnętrznych</SPAN></EM> <SPAN LANG="pl-PL">(zmiennych
+w </SPAN><EM><SPAN LANG="pl-PL">globalnym kontekście</SPAN></EM><SPAN LANG="pl-PL">).</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Jeżeli przyjmiemy
+ze </SPAN><EM><SPAN LANG="pl-PL">Variable Object</SPAN></EM> <SPAN LANG="pl-PL">może
+być obiekt zasięgu w ramach pewnego </SPAN><EM><SPAN LANG="pl-PL">kontekstu</SPAN></EM>
+<SPAN LANG="pl-PL">(scope object of the </SPAN><EM><SPAN LANG="pl-PL">context</SPAN></EM><SPAN LANG="pl-PL">),
+to analogicznie do omawianego wyżej łańcucha prototypów, możemy
+utworzyć z tych obiektów </SPAN><EM><SPAN LANG="pl-PL">łańcuch
+zasięgu</SPAN></EM> <SPAN LANG="pl-PL">(</SPAN><EM><SPAN LANG="pl-PL">scope
+chain</SPAN></EM><SPAN LANG="pl-PL">).</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">8. Łańcuch
+zasięgu. (Scope chain)</FONT></H3>
+<P><SPAN LANG="pl-PL">Łańcuch zasięgu jest to </SPAN><EM><SPAN LANG="pl-PL">lista</SPAN></EM>
+<SPAN LANG="pl-PL">obiektów, będąca wynikiem wyszukiwania
+</SPAN><EM><SPAN LANG="pl-PL">identyfikatorów</SPAN></EM>
+<SPAN LANG="pl-PL">pojawiających się w kontekście kodu.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Zasada jest podobna do
+łańcucha prototypów . Czyli, jeżeli zmienna nie została
+odnaleziona we własnym zasięgu (we własnym AO/VO
+activation/variable object), następuje proces odszukania jej w
+nadrzędnym VO i ten proces przeszukiwania może przebiegać dalej aż
+do ostatecznego odnalezienia zmiennej lub zakończy się
+stwierdzeniem ze taka zmienna nie istnieje.</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Podobnie jak w
+przypadku kontekstów, identyfikatorami są: </SPAN><EM><SPAN LANG="pl-PL">nazwy</SPAN></EM>
+<SPAN LANG="pl-PL">zmiennych, deklaracje funkcji, wymagane parametry
+(formal parameters) itp. Kiedy funkcja, w swoim kodzie odwołuje się
+do identyfikatora, który nie jest zmienna lokalna (a także funkcja
+lub wymaganym parametrem), to taka zmienna jest nazywana </SPAN><EM><SPAN LANG="pl-PL">zmienna
+swobodna</SPAN></EM><SPAN LANG="pl-PL">. Do wyszukiwania </SPAN><EM><SPAN LANG="pl-PL">zmiennych
+swobodnych</SPAN></EM> <SPAN LANG="pl-PL">wykorzystuje się łańcuch
+zasięgu (Scope chain).</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Generalnie ujmując,
+</SPAN><EM><SPAN LANG="pl-PL">łańcuch zasięgu</SPAN></EM> <SPAN LANG="pl-PL">(Scope
+chain) jest lista składająca się ze wszystkich </SPAN><EM><SPAN LANG="pl-PL">nadrzędnych
+VO</SPAN></EM> <SPAN LANG="pl-PL">(parent variable objects) oraz
+dodatkowo (patrząc od początku łańcucha zasięgu) ze wszystkich
+</SPAN><EM><SPAN LANG="pl-PL">VO/AO</SPAN></EM> <EM><SPAN LANG="pl-PL">(variable/activation
+object)</SPAN></EM> <SPAN LANG="pl-PL">należących do danej funkcji.
+Aczkolwiek łańcuch zasięgu (Scope chain) może zawierać także
+inne obiekty, np. obiekty dynamicznie dodane do łańcucha zasięgu
+podczas wykonywania kontekstu takie jak </SPAN><EM><SPAN LANG="pl-PL">obiekty
+with</SPAN></EM> <SPAN LANG="pl-PL">lub specjalne obiekty </SPAN><EM><SPAN LANG="pl-PL">klauzuli
+catch</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Podczas </SPAN><EM><SPAN LANG="pl-PL">wyznaczania</SPAN></EM>
+<SPAN LANG="pl-PL">identyfikatora, przeszukiwany jest łańcuch
+zasięgu zaczynający się od AO (activation obiect) i jeśli
+identyfikator nie zostanie odnaleziony przez funkcje we własnym AV
+to proces szukania jest przenoszony do elementu nadrzędnego,
+podobnie jak ma to miejsce w łańcuchu prototypów (prototype
+chain).</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var x = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(function foo() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var y = 20;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">(function bar() {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var z = 30;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// &quot;x&quot; oraz &quot;y&quot; są &quot;wolnymi zmiennymi&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// i są odnalezione (po aktywacji obiektu bar)</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// w następnym obiekcie łańcucha zasięgu,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// który to (łańcuch) należy do obiektu bar.</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(x + y + z); // --&gt; 60</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">})();</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">})();</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Możemy założyć
+ze istnieją połączania w ramach obiektów wchodzących w skład
+łańcucha zasięgu (Scope chain), poprzez właściwość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">__parent__</SPAN></SPAN><SPAN LANG="pl-PL">,
+która to wskazuje na następny element w ciągu obiektów/liście
+obiektów (object in the chain). Taka koncepcja istnieje i może być
+przetestowana w <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/#feature-of-implementations-property-__parent__" TARGET="_blank">real
+Rhino code</A>, dokładnie taka technika jest zastosowana w <A HREF="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-2-lexical-environments-ecmascript-implementation/" TARGET="_blank">ES5
+</A></SPAN><EM><A HREF="http://dmitrysoshnikov.com/ecmascript/es5-chapter-3-2-lexical-environments-ecmascript-implementation/" TARGET="_blank"><SPAN LANG="pl-PL">lexical
+environments</SPAN></A></EM> <SPAN LANG="pl-PL">(nazwana jest
+połączeniem zewnętrznym </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">outer
+link</SPAN></SPAN><SPAN LANG="pl-PL">). Inna reprezentacja pojęcia
+scope chain to prosta tablica. Używając pojęcia </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">__parent__</SPAN></SPAN><SPAN LANG="pl-PL">,
+możemy przedstawić powyższy przykład na rysunku znajdującym się
+poniżej (zatem nadrzędny VA jest zapisany we właściwości
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN><SPAN LANG="pl-PL">):</SPAN></P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/08-scope-chain/scope-chain.png" NAME="grafika9" ALIGN=BOTTOM WIDTH=221 HEIGHT=426 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Podczas wykonywania
+kodu, łańcuch zasięgu (Scope chain) może być rozszerzony za
+pomocą wyrażeń </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">with</SPAN></SPAN>
+<SPAN LANG="pl-PL">oraz klauzuli </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">catch</SPAN></SPAN><SPAN LANG="pl-PL">.
+Skoro te obiekty, są obiektami prostymi, wiec mogą mieć prototypy
+oraz łańcuch prototypów. To dowodzi faktu iż wyszukiwanie w
+łańcuchu zasięgu jest </SPAN><EM><SPAN LANG="pl-PL">dwuwymiarowe</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<OL>
+	<LI><P LANG="pl-PL" STYLE="margin-bottom: 0in">Po pierwsze, jest
+	rozważane połączenie istniejące w łańcuchu zasięgu, 
+	</P>
+	<LI><P LANG="pl-PL">następnie w każdym z połączeń łańcucha
+	zasięgu następuje poszukiwanie w głąb łańcucha prototypów (o
+	ile istnieje połączenie do prototypu). 
+	</P>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Dla naszego przykładu:</P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">Object.prototype.x = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var w = 20;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var y = 30;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// w SpiderMonkey obiekt globalny.</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// Innymi słowy, VO (Variable object)</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// dziedziczy z globalnego kontekstu &quot;Object.prototype&quot;,</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// tak wiec możemy odwoływać się do zmiennej &quot;x&quot;, która</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// &quot;jest niezdefiniowana zmienna globalna&quot; - brak &quot;var&quot;,</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// odnaleziona w łańcuchu prototypu.</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(x); // --&gt; 10</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(function foo() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// &quot;foo&quot; lokalne zmienne</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var w = 40;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var x = 100;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// &quot;x&quot; jest odnalezione </SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// w &quot;Objekt.prototype&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// ponieważ {z: 50} z niego dziedziczy</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">with ({z: 50}) {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(w, x, y , z); // --&gt; 40, 10, 30, 50</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">}</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// po tym jak obiekt &quot;with&quot; został usunięty </SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// z łańcucha zasięgu, &quot;x&quot; jest ponownie odnalezione</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// w AO (Activation Object) kontekstu &quot;foo&quot;;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// &quot;w&quot; jest także zmienna lokalna</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(x, w); // --&gt; 100, 40</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// oto jak możemy odwoływać się do</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// przysłoniętej zmiennej &quot;w&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// w środowisku przeglądarki</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(window.w); // --&gt; 20</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">})();</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Mamy wiec następująca
+strukturę (to znaczy, zanim podążymy za połączeniem we
+właściwości <SPAN STYLE="background: #eeeeee">__parent__</SPAN>,
+najpierw jest rozważane połączanie łańcucha wyznaczone przez
+<SPAN STYLE="background: #eeeeee">__proto__</SPAN> ).</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/08-scope-chain/scope-chain-with.png" NAME="grafika10" ALIGN=BOTTOM WIDTH=451 HEIGHT=549 BORDER=0>
+</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Zauważ, ze nie we
+wszystkich implementacjach obiekt globalny dziedziczy z
+<SPAN STYLE="background: #eeeeee">Object.prototype</SPAN>. Zachowanie
+opisane na powyższym rysunku (używając &quot;niezdefiniowanej&quot;
+zmiennej <SPAN STYLE="background: #eeeeee">x</SPAN> z kontekstu
+globalnego) może być przetestowane na przykład w SpiderMonkey
+(silnik JavaScipt używany w Firefox).</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Do momentu, gdy
+istnieją wszystkie zmienne obiektów nadrzędnych, nie ma nic
+niezwykłego w pobieraniu danych nadrzędnych przez funkcje
+wewnętrzne po prostu podążamy po scope chain odnajdując potrzebne
+zmienne. Aczkolwiek, tak jak wspomnieliśmy powyżej, po tym jak
+kontekst się skończy, wszystkie jego stany oraz on sam jest
+</SPAN><EM><SPAN LANG="pl-PL">niszczony</SPAN></EM><SPAN LANG="pl-PL">.
+W tym samym czasie, może nastąpić </SPAN><EM><SPAN LANG="pl-PL">powrót</SPAN></EM>
+<SPAN LANG="pl-PL">z </SPAN><EM><SPAN LANG="pl-PL">funkcji
+wewnętrznej</SPAN></EM> <SPAN LANG="pl-PL">do funkcji zewnętrznej.
+Co więcej, funkcja z której wrócono, może być później
+aktywowana z innego kontekstu. Co się stanie z taka aktywacja,
+jeżeli kontekst jakiejś wolnej zmiennej już &quot;nie istnieje&quot;?</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Ogólnie dla
+rozwiązania takiego problemu powstała koncepcja domknięć
+</SPAN><EM><SPAN LANG="pl-PL">(closure)</SPAN></EM><SPAN LANG="pl-PL">,
+która to w ECMAScript jest bezpośrednio powiązana z koncepcja
+</SPAN><EM><SPAN LANG="pl-PL">łańcucha zasięgu</SPAN></EM> <SPAN LANG="pl-PL">(scope
+chain).</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">9. Domknięcia
+- closures.</FONT></H3>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">W ECMAScript,
+funkcje są obiektami typu pierwszoklasowego (</SPAN><EM><SPAN LANG="pl-PL">first-class)</SPAN></EM><SPAN LANG="pl-PL">.
+To pojecie oznacza ze funkcje mogą być przekazane jako argument do
+innych funkcji, podobnie jak string czy liczba. W takim przypadku są
+nazywane </SPAN><EM><SPAN LANG="pl-PL">funargs</SPAN></EM> <SPAN LANG="pl-PL">-
+skrót od argumentów funkcyjnych (functional arguments). Funkcje,
+które otrzymują funargs (argumenty funkcyjne) są nazywane
+funkcjami </SPAN><EM><SPAN LANG="pl-PL">wyższego rzędu</SPAN></EM>
+<SPAN LANG="pl-PL">(higher-order functions) lub używając nazw
+matematycznych </SPAN><EM><SPAN LANG="pl-PL">operatorami</SPAN></EM><SPAN LANG="pl-PL">.
+Także funkcje mogą być zwrócone z innych funkcji. Funkcje
+zwracające inne funkcje są nazywane funkcjami z </SPAN><EM><SPAN LANG="pl-PL">wartością
+funkcyjna</SPAN></EM> <SPAN LANG="pl-PL">(function valued lub
+functional value).</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Istnieją dwa
+konceptualne (pojęciowe) pod-problemy i są związane z funargs oraz
+functional values(wartosciami funkcyjnymi). Powyższe dwa
+pod-problemy są łączone w jeden nadrzędny problem zwany </SPAN><EM><SPAN LANG="pl-PL">Funarg
+problem</SPAN></EM> <SPAN LANG="pl-PL">(problem argumentu funkcyjnego
+- A problem of a functional argument). Właśnie do kompletnego
+rozwiązania problemu funarg zostało utworzone pojecie domknięć.
+Gdy zajmiemy się bardziej szczegółowo wyżej wymienionymi dwoma
+problemami to możemy zauważyć ze maja rozwiązanie w ECMAScript,
+używając pokazanych na rysunku właściwości funkcji </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN><SPAN LANG="pl-PL">).</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Pierwszy
+pod-problemem związanym z funarg jest to </SPAN><EM><SPAN LANG="pl-PL">upward
+funarg problem</SPAN></EM> <SPAN LANG="pl-PL">(gdy funarg jest
+zwracany do nadrzędnego obiektu). Pojawia się wtedy gdy funkcja
+jest zwracana do &quot;góry&quot; (na zewnątrz) z innej funkcji i
+używa, wcześniej już wspomnianych </SPAN><EM><SPAN LANG="pl-PL">wolnych
+zmiennych</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Aby umożliwić
+dostęp do zmiennych znajdujących się w nadrzędnym kontekście,
+nawet jeśli ten </SPAN><EM><SPAN LANG="pl-PL">nadrzędny kontekst
+już się skończył</SPAN></EM><SPAN LANG="pl-PL">, funkcja
+wewnętrzna </SPAN><EM><SPAN LANG="pl-PL">w momencie jej tworzenia</SPAN></EM><SPAN LANG="pl-PL">,
+zapisuje odpowiednia wartość we własnym </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN><SPAN LANG="pl-PL">,
+która to (wartość) jest łańcuchem zasięgu (scope chain) funkcji
+nadrzędnej.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Gdy funkcja jest
+ponownie aktywowana, jej </SPAN><EM><SPAN LANG="pl-PL">łańcuch
+zasięgu </SPAN></EM><SPAN LANG="pl-PL">(wynikający z kontekstu tej
+funkcji) , jest uformowany jako kombinacja AO (Activation Object)
+oraz zapisane właściwości </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN>
+<SPAN LANG="pl-PL">(dokładnie to co widzimy poniżej):</SPAN></P>
+<PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">Scope chain = Activation object + [[Scope]]</PRE><P STYLE="margin-bottom: 0in">
+<SPAN LANG="pl-PL">Zauważ ważną rzecz dokładnie w </SPAN><EM><SPAN LANG="pl-PL">momencie
+tworzenia</SPAN></EM> <SPAN LANG="pl-PL">funkcja zapisuje nadrzędny
+łańcuch zasięgu (parent's scope chain), ponieważ ten zachowany
+</SPAN><EM><SPAN LANG="pl-PL">łańcuch zasięgu</SPAN></EM> <SPAN LANG="pl-PL">będzie
+użyty do poszukiwania zmiennych przy okazji kolejnych wywołań tej
+funkcji.</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function foo() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var x = 10;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return function bar() {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(x);</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">};</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// &quot;foo&quot; zwraca także funkcje</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// i ta zwrócona funkcja </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// używa wolnej zmiennej &quot;x&quot;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var returnedFunction = foo();</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// zmienna globalna &quot;x&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var x = 20;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// wykonanie zwróconej funkcji</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">returnedFunction(); // --&gt; 10, ale nie 20</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Ten typ zakresu jest
+nazywany </SPAN><EM><SPAN LANG="pl-PL">zakresem leksykalnym </SPAN></EM><SPAN LANG="pl-PL">lub</SPAN><EM>
+</EM><EM><SPAN LANG="pl-PL">statycznym</SPAN></EM> <SPAN LANG="pl-PL">(lexical/static
+scope). Widzimy ze zmienna </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">x</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest odnaleziona w zapisanym zakresie </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN>
+<SPAN LANG="pl-PL">zwracanej funkcji </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">bar</SPAN></SPAN><SPAN LANG="pl-PL">.
+W ogólnym rozumieniu istnieje także </SPAN><EM><SPAN LANG="pl-PL">zakres
+dynamiczny</SPAN></EM><SPAN LANG="pl-PL">, wtedy zmienna </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">x</SPAN></SPAN>
+<SPAN LANG="pl-PL">z powyższego przykładu otrzymałaby wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">20</SPAN></SPAN>
+<SPAN LANG="pl-PL">ale nie </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">10</SPAN></SPAN><SPAN LANG="pl-PL">.
+Aczkolwiek, zakres dynamiczny nie jest używany w ECMAScript.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Druga częścią
+problemu </SPAN><EM><SPAN LANG="pl-PL">funarg</SPAN></EM> <SPAN LANG="pl-PL">jest
+</SPAN><EM><SPAN LANG="pl-PL">downward funarg problem</SPAN></EM> <SPAN LANG="pl-PL">-
+czyli problem wynikający z przekazania (funarg) do funkcji
+wewnętrznej, z funkcji znajdującej się w innym zakresie
+leksykalnym. W takim przypadku może istnieć kontekst nadrzędny,
+który może być niejednoznacznie zidentyfikowany. Problemem jest: z
+</SPAN><EM><SPAN LANG="pl-PL">którego zasięgu</SPAN></EM> <SPAN LANG="pl-PL">ma
+być użyty identyfikator zmiennej? Czy statycznie zachowanego
+podczas tworzenia funkcji czy tez dynamicznie utworzonego podczas
+wykonywania (zasieg funkcji wywolujacej - </SPAN><EM><SPAN LANG="pl-PL">caller</SPAN></EM><SPAN LANG="pl-PL">)?
+Aby uniknąć takich dwuznaczności, utworzono domknięcia i użyto
+statycznego zasięgu:</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// globalna &quot;x&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var x = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// globalna funkcja</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function foo() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">console.log(x);</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(function (funArg) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// lokalna &quot;x&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var x = 20;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// nie ma dwuznaczności poniewaz</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// użyliśmy globalnej zmiennej &quot;x&quot;,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// która to została zapisana statycznie</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// w [[Scope]] funkcji foo,</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// i nie użyliśmy &quot;x&quot; z zasięgu funkcji wołającej (caller)</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">// która aktywuje &quot;funarg&quot;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">funArg(); // 10, ale nie 20</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">})(foo); // przekazanie &quot;w dól&quot; funkcji foo jako &quot;funarg&quot;</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Dochodzimy do
+wniosku, iż </SPAN><EM><SPAN LANG="pl-PL">zasięg statyczny</SPAN></EM>
+<SPAN LANG="pl-PL">jest </SPAN><EM><SPAN LANG="pl-PL">wymagany</SPAN></EM>
+<SPAN LANG="pl-PL">aby w języku programowania można było
+zastosować </SPAN><EM><SPAN LANG="pl-PL">domknięcia</SPAN></EM><SPAN LANG="pl-PL">.
+Aczkolwiek, niektóre języki mogą wspierać kombinacje zasięgu
+dynamicznego oraz zasięgu statycznego, pozostawiając wybór
+programiście co domknięcia maja robić a czego nie mogą robić.
+Odkąd w ECMAScript jest tylko używany statyczny zasięg pojawia się
+wniosek: </SPAN><EM><SPAN LANG="pl-PL">ECMAScript całkowicie wspiera
+domknięcia</SPAN></EM><SPAN LANG="pl-PL">, które to technicznie są
+zaimplementowane przy użyciu właściwości </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN><SPAN LANG="pl-PL">,
+która to właściwość należy do każdej funkcji. Teraz możemy
+dokładnie zdefiniował domknięcia:</SPAN></P>
+<P LANG="pl-PL">Domkniecie jest kombinacja zasięgu bloku kodu (w
+ECMAScript zasięg funkcyjny) oraz zapisanego
+statycznego/leksykalnego zasięgu funkcji nadrzędnych (parent
+functions). Aczkolwiek, poprzez te zapisane zasięgi, funkcja ma
+łatwy dostęp do wolnych zmiennych (free variables).</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Zauważ że odkąd
+każda (normalna) funkcja zachowuje </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN>
+<SPAN LANG="pl-PL">w momencie tworzenia, teoretycznie, </SPAN><EM><SPAN LANG="pl-PL">wszystkie
+funkcje</SPAN></EM> <SPAN LANG="pl-PL">w ECMAScript </SPAN><EM><SPAN LANG="pl-PL">są
+domknięciami</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Inna ważna rzeczą
+do zapamiętania jest fakt iż kilka funkcji może mieć ten sam</SPAN><EM>
+</EM><EM><SPAN LANG="pl-PL">nadrzędny</SPAN></EM> <EM><SPAN LANG="pl-PL">zasięg</SPAN></EM>
+<SPAN LANG="pl-PL">(parent scope). Jest to całkowicie normalna
+sytuacja, gdy przykładowo, mamy dwie wewnętrzne/globalne funkcje. W
+takim przypadku, zmienne są przechowywane we właściwości
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN>
+<SPAN LANG="pl-PL">i są dzielone miedzy wszystkimi funkcjami, które
+to maja ten sam zasięg nadrzędny. Zmiany dokonane na zmiennej przez
+jedno z domknięć są </SPAN><EM><SPAN LANG="pl-PL">dzielone miedzy
+wszystkie funkcje</SPAN></EM><SPAN LANG="pl-PL">, które maja ten sam
+nadrzędny zasięg.</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function baz() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">var x = 1;</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">foo: function foo() { return ++x; },</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">bar: function bar() { return --x; }</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">};</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var closures = baz();</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">closures.foo(), // 2</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">closures.bar() // 1</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">);</PRE>
+</OL>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Powyższy kod można
+opisać poniższy rysunkiem:</P>
+<P><IMG SRC="http://eternes.pl/blog/images/ECMA262/09-closures/shared-scope.png" NAME="grafika11" ALIGN=BOTTOM WIDTH=430 HEIGHT=266 BORDER=0>
+</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Podczas tworzenia
+kilku funkcji za pomocą pętli, pojawia się pewna dezorientująca
+cecha. Używając licznika pętli wewnątrz utworzonej funkcji,
+niektórzy programiści, często otrzymują nieoczekiwane wyniki gdy
+na przykład wszystkie funkcje maja </SPAN><EM><SPAN LANG="pl-PL">ta
+sama</SPAN></EM> <SPAN LANG="pl-PL">wartość licznika wewnątrz
+funkcji. Jest tak ponieważ wszystkie te funkcje maja ten sam
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">[[Scope]]</SPAN></SPAN>
+<SPAN LANG="pl-PL">gdzie licznik pętli ma ostatnio zapisana wartość.</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var data = [];</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">for (var k = 0; k &lt; 3; k++) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">data[k] = function () {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">alert(k);</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">};</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[0](); // 3, ale nie 0</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[1](); // 3, ale nie 0</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[2](); // 3, ale nie 0</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Istnieje kilka
+technik, które mogą pomóc w rozwiązaniu tego problemu. Jedna z
+technik jest dołączenie dodatkowego obiektu do </SPAN><EM><SPAN LANG="pl-PL">łańcucha
+zasięgu</SPAN></EM> <SPAN LANG="pl-PL">(scope chain) przykład
+użycia dodatkowej funkcji:</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var data = [];</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">for (var k = 0; k &lt; 3; k++) {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">data[k] = (function (x) {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">return function () {</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">alert(x);</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">};</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">})(k); // przekazanie wartości &quot;k&quot;</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// teraz jest poprawnie</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[0](); // --&gt; 0</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[1](); // --&gt; 1</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">data[2](); // --&gt; 2</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Dla tych, którzy są
+zainteresowani głębszym poznaniem teorii domknięć oraz jej
+praktycznego zastosowania, przygotowano dodatkowe materiały, które
+to można znaleźć pod tym linkiem: <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/" TARGET="_blank">Chapter
+6. Closures</A>. Do zdobycia większej wiedzy na temat łańcucha
+zasięgu (scope chain), wato zerknąć tutaj : <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-4-scope-chain/" TARGET="_blank">Chapter
+4. Scope chain</A>.</SPAN></P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Teraz przechodzimy do
+następnego rozdziało, rozważymy ostatnia własność kontekstu
+wykonania (execution context). To jest pojecie wartości<SPAN STYLE="background: #eeeeee">this</SPAN>.</P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">10. Wartość
+&quot;this&quot;.</FONT></H3>
+<P><SPAN LANG="pl-PL">Wartość &quot;</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN><SPAN LANG="pl-PL">&quot;
+jest specjalnym obiektem, który jest związany z kontekstem
+wykonania (execution context). Dlatego może być nazywany jako
+</SPAN><EM><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">context
+object</SPAN></SPAN></EM><SPAN LANG="pl-PL">, to znaczy obiekt w
+którego to kontekście jest </SPAN><EM><SPAN LANG="pl-PL">aktywny</SPAN></EM>
+<SPAN LANG="pl-PL">kontekst wykonania.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><EM><SPAN LANG="pl-PL">Każdy</SPAN></EM>
+<SPAN LANG="pl-PL">obiekt może użyć </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jako wartość kontekstu. Chciałbym od razu
+wyjaśnić nieporozumienia, które powstają przy tworzeniu kodu,
+związane z kontekstem wykonania zaimplementowanym w ECMAScript a w
+szczególności z właściwością </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN><SPAN LANG="pl-PL">.
+Często bowiem wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN><SPAN LANG="pl-PL">,
+niewłaściwie jest opisywana jako właściwość Variable Object.
+Zapamiętajmy wiec:</SPAN></P>
+<P><SPAN LANG="pl-PL">Wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest właściwością </SPAN><EM><SPAN LANG="pl-PL">kontekstu
+wykonania</SPAN></EM> <SPAN LANG="pl-PL">ale </SPAN><EM><SPAN LANG="pl-PL">nie</SPAN></EM>
+<SPAN LANG="pl-PL">właściwością Variable Object.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Ta cecha jest bardzo
+ważna, ponieważ </SPAN><EM><SPAN LANG="pl-PL">w przeciwieństwie do
+zmiennych</SPAN></EM><SPAN LANG="pl-PL">, wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<EM><SPAN LANG="pl-PL">nigdy nie uczestniczy w procesie wyszukiwania
+identyfikatora</SPAN></EM><SPAN LANG="pl-PL">. Wiec, podczas używania
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">w naszym kodzie, jego wartość jest pobierana
+</SPAN><EM><SPAN LANG="pl-PL">bezposrednio</SPAN></EM> <SPAN LANG="pl-PL">z
+kontekstu wykonania bez </SPAN><EM><SPAN LANG="pl-PL">sprawdzania
+łańcucha zasięgu</SPAN></EM> <SPAN LANG="pl-PL">(scope chain).
+Wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest ustalana </SPAN><EM><SPAN LANG="pl-PL">tylko
+raz</SPAN></EM> <SPAN LANG="pl-PL">podczas wejscia w </SPAN><EM><SPAN LANG="pl-PL">kontekst
+wykonania</SPAN></EM><SPAN LANG="pl-PL">.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Przykładowo,
+przeciwnie do ECMAScript, Python ma swój argument </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">self</SPAN></SPAN><SPAN LANG="pl-PL">,
+który jest prosta zmienna podobnie zarządzana, ale może zostać
+zmieniona podczas wykonania na inna wartość. Powtórzmy jeszcze raz
+ważną rzecz. W ECMAScript </SPAN><EM><SPAN LANG="pl-PL">nie ma
+możliwości</SPAN></EM> <SPAN LANG="pl-PL">ustawienia nowej wartości
+dla </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">ponieważ to nie jest zmienna/właściwość i nie
+istnieje jako właściwość/pole Variable Object.</SPAN></P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">W kontekście
+globalnym, wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest </SPAN><EM><SPAN LANG="pl-PL">sama w sobie
+obiektem globalnym</SPAN></EM><SPAN LANG="pl-PL">, oznacza to iż w
+poniższym przykładzie wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest równa Variable Object:</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var x = 10;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">console.log(</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">x, // --&gt; 10</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">this.x, // --&gt; 10</SPAN></PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">window.x // --&gt; 10</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">);</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">W przypadku
+kontekstu funkcji, wartość </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<EM><SPAN LANG="pl-PL">w każdym wywołaniu funkcji</SPAN></EM> <SPAN LANG="pl-PL">może
+być </SPAN><EM><SPAN LANG="pl-PL">inna</SPAN></EM><SPAN LANG="pl-PL">.
+Tutaj </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">jest otrzymywana z obiektu </SPAN><EM><SPAN LANG="pl-PL">wywołującego</SPAN></EM>
+<SPAN LANG="pl-PL">(caller) poprzez </SPAN><EM><SPAN LANG="pl-PL">formę
+call expression</SPAN></EM> <SPAN LANG="pl-PL">czyli sposób w jaki
+to funkcja jest aktywowana. Przykładowo poniższa funkcja </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">foo</SPAN></SPAN>
+<SPAN LANG="pl-PL">będąca </SPAN><EM><SPAN LANG="pl-PL">wołana
+(callee)</SPAN></EM><SPAN LANG="pl-PL">, jest wołana z globalnego
+kontekstu i ten kontekst jest </SPAN><EM><SPAN LANG="pl-PL">wywołującym
+(caller)</SPAN></EM><SPAN LANG="pl-PL">. Spójrzmy na poniższy
+przykład. Zauważmy jak ten sam kod funkcji otrzymując rożną
+wartość od wywołującego (caller), zmienia </SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">w zależności od różnych wywołań (różnych
+sposobów aktywacji):</SPAN></P>
+<OL>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// Kod funkcji&quot;foo&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// nigdy się nie zmienia, ale wartość &quot;this&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// zmienia się za każdym uruchomieniem</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">function foo() {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">alert(this);</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">}</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// Wołający (caller) aktywuje &quot;foo&quot; - wołanego (callee)</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">// i ustawia &quot;this&quot; dla wołanego (callee)</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo(); // &quot;this&quot; wskazuje na kontekst Objektu globalnego</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">foo.prototype.constructor(); // &quot;this&quot; wskazuje na kontekst foo.prototype</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var bar = {</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> <SPAN LANG="pl-PL">baz: foo</SPAN></PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">};</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">bar.baz(); // &quot;this&quot; wskazuje na kontekst &quot;bar&quot;</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(bar.baz)(); // także &quot;this&quot; wskazuje na kontekst &quot;bar&quot;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(bar.baz = bar.baz)(); // ale tu &quot;this&quot; wskazuje na kontekst Obiektu globalnego</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(bar.baz, bar.baz)(); // także &quot;this&quot; wskazuje na kontekst Obiektu globalnego</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">(false || bar.baz)(); // nadal &quot;this&quot; wskazuje na kontekst Obiektu globalnego</PRE>
+	<LI><PRE CLASS="western" STYLE="margin-bottom: 0.2in"> </PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">var otherFoo = bar.baz;</PRE>
+	<LI><PRE LANG="pl-PL" CLASS="western" STYLE="margin-bottom: 0.2in">otherFoo(); // ponownie &quot;this&quot; wskazuje na kontekst Obiektu globalnego</PRE>
+</OL>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Dla głębszego
+zrozumienia </SPAN><EM><SPAN LANG="pl-PL">jak</SPAN></EM> <SPAN LANG="pl-PL">wartość
+</SPAN><SPAN LANG="pl-PL"><SPAN STYLE="background: #eeeeee">this</SPAN></SPAN>
+<SPAN LANG="pl-PL">może się zmienić dla rożnych wywołań tej
+samej funkcji funkcji, proponuje przeczytać <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-3-this/" TARGET="_blank">Chapter
+3. This.</A> Są tam bardziej szczególowo opisane, wyżej omówione
+przypadki.</SPAN></P>
+<H3 LANG="pl-PL" CLASS="western"><FONT COLOR="#0088cc">11.
+Podsumowanie</FONT></H3>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Na tym zakończymy
+krótki przegląd. Myślę ze nie tak bardzo krótki :) Aczkolwiek,
+cale wyjaśnienie wszystkich zagadnień, może złożyć się na
+kompletna książkę. Nie zostały poruszone dwa główne
+zagadnienia: funkcje oraz różnice między poszczególnymi typami
+funkcji. Na przykład </SPAN><EM><SPAN LANG="pl-PL">deklaracje
+funkcji</SPAN></EM> <SPAN LANG="pl-PL">i </SPAN><EM><SPAN LANG="pl-PL">wyrażenia
+funkcji</SPAN></EM> <SPAN LANG="pl-PL">używane w ECMAScript. Obydwa
+zagadnienia można odnaleźć w odpowiednich rozdziałach serii o
+ES3: <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/" TARGET="_blank">Chapter
+5. Functions</A> oraz <A HREF="http://dmitrysoshnikov.com/ecmascript/chapter-8-evaluation-strategy/" TARGET="_blank">Chapter
+8. Evaluation strategy.</A> Jeżeli masz komentarze, zapytania lub
+chcesz coś dodać, zapraszam na blog autora tekstu.</SPAN></P>
+<P LANG="pl-PL">Jako autor tłumaczenia, będę wdzięczny za
+wskazanie ewentualnych błędów w polskiej wersji.</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Powodzenia w nauce
+ECMAScript!</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Oryginalny tekst: Dmitry
+A. Soshnikov Opublikowany: 2 września 2010 r.</P>
+<P LANG="pl-PL" STYLE="margin-bottom: 0in">Tłumaczenie: Robert
+Szołdrowski. Opublikowany: 10 marca 2016 r.</P>
+<P STYLE="margin-bottom: 0in"><SPAN LANG="pl-PL">Od tłumacza. Jeżeli
+znajdziesz jakiś błąd lub tez pewne zdanie jest niezrozumiale to
+proszę kierować wiadomości na mój profil w serwisie facebook:
+<A HREF="https://www.facebook.com/robertvdir" TARGET="_blank">Robert
+Szołdrowski</A></SPAN></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

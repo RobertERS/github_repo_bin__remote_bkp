@@ -1,0 +1,11 @@
+@mixin element($param){
+    &__#{$param} {
+        @content;
+    }
+}
+
+@mixin modifier($param){
+    &--#{$param} {
+        @content;
+    }
+}

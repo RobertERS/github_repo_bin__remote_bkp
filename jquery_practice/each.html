@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    // var mObj = {
+    //     "one":"foo",
+    //     "two":"bar",
+    //     "three":"baz",
+    //     "four":"qux"
+    // }
+    // $.each(mObj, function(key, value) {
+    //     console.log(key + ': ' + value);
+    // });
+    // console.log('arrow function style;');
+    // $.each(mObj,(key,value)=>{
+    //     console.log(key + ': ' + value);
+    // });
+
+    var mObjArr = {"artists":[{
+        "a1":"Adam Sandler",
+        "a2":"Adam Lambert",
+        "a3":"Avril Levine",
+        "a4":"Backstreet Boys",
+        "a5":"Blackstreet",
+        "a6":"Black Eye Peas",
+        "a7":"Cool and the Gang",
+        "a8":"Chicago",
+        "a9":"Charlie Manson"
+
+    }],
+    "songs":[{
+        "s1":"Grow Old With You",
+        "s2":"Whatdaya Want From Me",
+        "s3":"Yea yea",
+        "s4":"Quit Playing Games With My Heart",
+        "s5":"No Digity",
+        "s6":"Meet Me Half way",
+        "s7":"Doo wa ditty",
+        "s8":"Fight for your honor",
+        "s9":"Charlies Song"
+    }],
+    "genre":[{
+        "g1":"Pop",
+        "g2":"Pop",
+        "g3":"Alternative",
+        "g4":"R & B",
+        "g5":"R & B",
+        "g6":"Hip-Hop",
+        "g7":"Funk",
+        "g8":"Soft Rock",
+        "g9":"Rock"
+    }]};
+
+        $.each(mObjArr, (index, value)=>{
+            console.log(index);
+            $.each(value,(index, value)=>{
+                    $.each(value,(index, value)=>{
+                    console.log(index, value);
+                });
+            });
+        });
+
+</script>
+    
+</body>
+</html>

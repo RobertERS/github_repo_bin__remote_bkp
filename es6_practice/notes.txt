@@ -1,0 +1,7 @@
+ES6 compatibility table:
+https://kangax.github.io/compat-table/es6/
+
+npm install babel-cli babel-preset-es2015 --save-dev
+and guild from babeljs.io -> cli section
+
+npm run build

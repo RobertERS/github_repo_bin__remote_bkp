@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function outer(){ 
+            var passed = 3; 
+            var addTo = function(){ 
+                var inner = 2; 
+                return inner + passed;
+            };
+            return addTo;
+        };         
+     //   console.dir(outer());
+
+        //-----------------------------------
+
+        var addToFe = function(_passed){
+
+            var addFe = function(_inner){
+                return _passed + _inner;
+            }
+            console.log('argument[0] ' + addToFe.arguments[0]);
+            console.log('argument[1] ' + addToFe.arguments[1]);
+            return addFe;
+        }
+
+        var a1 = new addToFe(5);
+        var a2 = new addToFe(6);
+
+        console.dir(a1);
+        console.dir(a2);
+
+        console.log(a1(1));
+        console.log(a2(2));
+
+    </script>
+</body>
+</html>

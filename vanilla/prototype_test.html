@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var l = {
+            name: 'john',
+            id: 23,
+            get: function () {
+                for (var key in l) {
+                    if ((l.hasOwnProperty(key))) {
+                        console.log(key, l[key]);                        
+                    }
+                }
+            }
+        }
+        Object.defineProperty(l,"get",{
+            enumerable: false
+        });
+        //&&(typeof(l.hasOwnProperty(key))=='function')
+
+        var o = {
+            a: 1,
+            b: 2,
+            get: function() {
+                console.log(o.a,o.b);
+            },
+            set: function (_a, _b) {
+                o.a = _a;
+                o.b =_b;
+            }
+        }
+
+        function c() {
+            var a = 0;
+            return {
+                get: function(){
+                    console.log(a);
+                },
+                inc: function () {
+                    a ++;
+                }
+            }
+        };
+
+        var c1 = new c();
+        var c2 = c();
+        var c3 = c();
+
+        var double = function () {
+            
+        }
+
+    var d = function(_n, _id){
+        self=this;
+        this.n = _n;
+        this.id = _id;
+        return {
+            get: function(self){console.log(self.n,self.id)}
+        }
+}
+
+    </script>
+    
+</body>
+</html>

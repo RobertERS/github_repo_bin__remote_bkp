@@ -1,0 +1,10 @@
+sudo npm install -g bower
+bower install bootstrap-sass --save
+
+added
+sudo npm -g install live-server
+used as
+live-server --port=9000
+
+instaled
+bower install fontawesome --save

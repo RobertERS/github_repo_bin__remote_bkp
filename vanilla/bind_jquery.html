@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <a></a>
+
+    <a id="button1" class="click-link" href="#">Click me</a>
+
+    <script type="text/javascript">
+        var someObj = {
+        data : 'some data',
+        func : function () {
+                $('a').each(function (index, par) {
+                    console.log('this is:', this, par);
+                    return false;
+                }.bind(this));
+            }
+        };
+
+        // someObj.func()
+
+            // var someObj = {
+            //     data : 'some data'
+            // };
+            // function lala() {
+            //     console.log('this is:', this);
+            // }
+            // [1,2,3,4,5,6].forEach(lala.call(someObj));
+
+        
+    </script>
+</body>
+</html>

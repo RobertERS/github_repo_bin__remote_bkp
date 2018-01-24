@@ -1,0 +1,42 @@
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.list__item {
+  margin-bottom: 10;
+}
+.list__item--last {
+  margin-bottom: 0;
+}
+
+.inline-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.inline-list__item {
+  display: inline-block;
+  margin-right: 30px;
+}
+.inline-list__item--end {
+  margin-right: 0;
+}
+.inline-list--bordered {
+  border: 1px solid red;
+}
+
+.avatar {
+  border: 1px solid #f0f0f0;
+}
+.avatar__image {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  display: block;
+}
+.avatar__username {
+  color: red;
+}
+
+/*# sourceMappingURL=app.css.map */

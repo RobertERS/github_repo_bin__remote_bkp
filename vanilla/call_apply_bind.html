@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    var o = {value: 2};
+
+    function addFd(a, b, c) {
+        return this.value + a + b + c;
+    }
+
+    console.log(addFd.call(o, 3, 4, 5));
+
+    var addFe = function (a, b, c) {
+        return this.value + a + b + c;
+    }
+
+    console.log(addFe.call(o, 4, 5, 6));
+
+    //---------------------------------------
+
+    var o2 = {value: 10}
+
+    var arr = [20, 30, 40];
+
+    function addArrFd(a,b,c){        
+        console.log(this.value + a + b + c);
+    }
+
+    addArrFd.apply(o2, arr);
+
+    var addArrFe = function (a,b,c) {
+        console.log(this.value + a + b + c);
+    }
+
+    addArrFe.apply(o2, arr);
+
+ //------------------------------------------
+
+    var o3 = {value: 1001}
+
+    function addFdBnd(a,b,c){
+        return this.value + a + b + c;
+    }
+
+    var bound = addFdBnd.bind(o3);
+
+    console.dir(bound);
+    console.dir(o3);
+
+    console.log(bound(100, 200, 300))
+
+    </script>
+</body>
+</html>

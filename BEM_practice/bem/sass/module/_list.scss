@@ -1,0 +1,11 @@
+.list{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    @include element('item'){
+        margin-bottom: 10;
+        @include modifier('last'){
+            margin-bottom: 0;
+        }
+    }
+}

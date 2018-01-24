@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+        var inputValues = [10, 4, 88, 2, 8, 64, 91];
+        var binaryMap = [];
+        var k = 1;
+        function binaryTree(p) {
+            if (binaryMap[k] === undefined && k < inputValues.length) {
+                binaryMap[k] = p;
+                return binaryMap;
+            }
+        }
+
+        binaryMap = binaryTree(10);
+        console.log(binaryMap);        
+        
+        // binaryTree(4);
+        // console.log(binaryMap);
+        // binaryTree(88);
+        // console.log(binaryMap);
+        // binaryTree(2);
+        // console.log(binaryMap);
+
+        // function binaryTree(p) {
+        //     if (binaryMap[k] === undefined && k < inputValues.length) {
+        //         binaryMap[k] = p;
+        //         return;
+        //     }else{
+        //         if(p < binaryMap[k]&&(binaryMap[2*k] === undefined)){
+        //             binaryMap[2*k] = p;
+        //             return;
+        //         }
+        //         if(p > binaryMap[k]&&(binaryMap[(2*k)+k] === undefined)){
+        //             binaryMap[(2*k)+k] = p;
+        //             return;
+        //         }
+        //     };
+        // }
+    </script>
+    
+</body>
+</html>

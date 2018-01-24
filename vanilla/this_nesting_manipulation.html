@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var someObj = {
+        data : 'some data',
+        func : function () {
+            var otherdata = 'other data';
+            var self = this;
+            return {
+                    otherFunc : function () {
+                        var data = 'other data'
+                        console.log('this is:', this);
+                    },            
+                    getValue: function(){
+                        console.log(self.data);
+                        console.log(this.data);
+                        console.log(self.otherdata);
+                        console.log(this.otherdata);
+                    }
+                };
+
+            }
+        };
+
+var sth = someObj.func();
+
+sth.otherFunc();
+
+var lala = {
+    id:123,
+    getThis : (console.log(this)),
+    getThat : function(){
+        console.log(this);
+    }
+}
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

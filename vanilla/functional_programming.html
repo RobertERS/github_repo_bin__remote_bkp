@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        function makeAdjectifier(adjective) {
+            return function (string) {
+                return adjective + ' ' + string;
+            }
+        }
+
+        var coolifier = makeAdjectifier('cool');
+
+        coolifier('conference');
+
+
+        var rooms = ['H1','H2','H3'];
+        var newRooms = rooms.map(function(rm){
+            if(rm == 'H3') {return 'H4';}
+            else { return rm; }
+        });
+
+        newRooms;
+        rooms;
+
+    </script>
+    
+</body>
+</html>

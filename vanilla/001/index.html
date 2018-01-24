@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        f = function() {
+            var self = this;
+            var name = 'ola';
+            function get() {
+                //console.log(self.name);
+                console.log('self: ' + self);
+                console.log('this ' + this);
+            }
+            get();
+        }
+
+        let promiseToCleanTheRoom = new Promise(function(resolve, reject){
+        // cleaning the room
+        let isClean = true;
+        if(isClean){
+            resolve('Clean');
+        }else{
+            reject();
+        }
+        });
+
+        promiseToCleanTheRoom.then(function(fromResolve){
+        console.log("the room is" + fromResolve);
+        });
+
+        var foo = 10;
+        function bar(){};
+        (function baz(){});
+
+        console.log(
+            this.foo == foo,
+            window.bar == bar
+        );
+
+        console.log(baz);
+
+    </script>
+</body>
+</html>
+

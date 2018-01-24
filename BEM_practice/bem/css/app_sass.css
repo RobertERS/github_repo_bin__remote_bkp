@@ -1,0 +1,13 @@
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.list__item {
+  margin-bottom: 10;
+}
+.list__item--last {
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=app_sass.css.map */
